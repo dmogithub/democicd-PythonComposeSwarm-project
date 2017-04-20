@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  web:
+    image: ${DTR_URL}/demo/hello-world-python:${TAG}
+    ports:
+     - "32769:5000"
+    deploy:
+       mode: replicated
+       replicas: 1
+    placement:
+      constraints:
+      - node.role == worker
+    networks:
+      - hello-world
+
+
+  redis:
+    image: redis:3.2-alpine
+    command: redis-server --appendonly yes
+    deploy:
+       mode: replicated
+       replicas: 1
+    placement:
+      constraints:
+      - node.role == worker
+    networks:
+      - hello-world
+    volumes:
+      - redis-data:/data
+
+
+networks:
+  hello-world:
+
+
+volumes:
+  redis-data:
+
