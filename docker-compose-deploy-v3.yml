@@ -4,7 +4,7 @@ services:
   web:
     image: ${DTR_URL}/demo/hello-world-python:${TAG}
     ports:
-     - "80:5000"
+     - "8443:5000"
     networks:
       - hello-world
 
